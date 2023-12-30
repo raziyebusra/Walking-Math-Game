@@ -360,7 +360,9 @@
 "Assets/Quirky Series Ultimate/_Scripts/QuirkySeriesDemo.cs"
 "Assets/Quirky Series Ultimate/_Scripts/RotateOnScroll.cs"
 "Assets/Scripts/FollowPlayer.cs"
-"Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/Gate.cs"
+"Assets/Scripts/PlayerMovement.cs"
+"Assets/Scripts/SimpleCharacterController.cs"
 "Assets/TutorialInfo/Scripts/Readme.cs"
 -langversion:9.0
 
