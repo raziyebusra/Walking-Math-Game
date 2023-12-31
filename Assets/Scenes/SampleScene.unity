@@ -617,12 +617,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98b5b4a2ba144d5eb681e0a69a4f05f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  sideMoveDistance: 2
-  groundCheck: {fileID: 1235751800}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  controller: {fileID: 769480246}
+  speed: 5
 --- !u!143 &769480246
 CharacterController:
   m_ObjectHideFlags: 0
