@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;  // Reference to the character controller
     public float speed = 5f;              // Character's forward movement speed
-
     float targetXPosition = 0f;           // Variable to store the target x-position
 
     void Update()
