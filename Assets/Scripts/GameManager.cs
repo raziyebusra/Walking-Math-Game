@@ -3,19 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
     public GameObject gatePrefab;  // Prefab for the gate
     public Material gateBlueMaterial; // Material for gates with even numbers
     public TextMeshPro playerScoreText;  // Reference to the player's score text
-    private int playerScore;  // Player's score
+    public int playerScore;  // Player's score
 
     public GameObject gatesParent;  // Reference to the empty 3D object for gates
+    public GameObject winnerPanelUI;
+    public GameObject loserPanelUI;
 
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
+        winnerPanelUI.SetActive(false);
+        loserPanelUI.SetActive(false);
+
+        FinishScript.Instance.isGameFinished = false;
+        winnerPanelUI.SetActive(false);
+
         playerScore = 0;
 
         UpdatePlayerScoreText();
@@ -52,7 +73,7 @@ public class GameManager : MonoBehaviour
                     textMeshPro.text = "+30";
                     break;
                 case 4:
-                    textMeshPro.text = "+4";
+                    textMeshPro.text = "+17";
                     break;
                 case 5:
                     textMeshPro.text = "-7";
@@ -77,7 +98,34 @@ public class GameManager : MonoBehaviour
 
         }
     }
+    void Update()
+    {
+        if (FinishScript.Instance != null && FinishScript.Instance.isGameFinished)
+        {
+            //add the additional logic 
+            winnerPanelUI.SetActive(true);
+        }
+    }
+    public int PlayerScore
+    {
+        get { return playerScore; }
+    }
 
+    public void HandleGameFinish(bool isWinner)
+    {
+        if (isWinner)
+        {
+            winnerPanelUI.SetActive(true);
+            loserPanelUI.SetActive(false);
+        }
+        else
+        {
+            winnerPanelUI.SetActive(false);
+            loserPanelUI.SetActive(true);
+        }
+        // Set the game as finished
+        FinishScript.Instance.isGameFinished = true;
+    }
     // Determine position based on index
     Vector3 DetermineGatePosition(int index)
     {

@@ -362,6 +362,7 @@
 -analyzer:"/Applications/Unity/Hub/Editor/2022.3.15f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Quirky Series Ultimate/_Scripts/QuirkySeriesDemo.cs"
 "Assets/Quirky Series Ultimate/_Scripts/RotateOnScroll.cs"
+"Assets/Scripts/FinishScript.cs"
 "Assets/Scripts/FollowPlayer.cs"
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/Gate.cs"
