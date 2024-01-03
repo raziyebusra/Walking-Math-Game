@@ -575,7 +575,7 @@ Transform:
   m_GameObject: {fileID: 769480238}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: -55.52}
+  m_LocalPosition: {x: 0, y: 1, z: -55.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -964,6 +964,7 @@ MonoBehaviour:
   gatePrefab: {fileID: 3853411785341577520, guid: 5c79e7b8f405a40e9858f0f074935b11,
     type: 3}
   gateBlueMaterial: {fileID: 2100000, guid: c2a13022b20f94098aa3166c46bad2c2, type: 2}
+  playerScoreText: {fileID: 442454244}
 --- !u!4 &1244627937
 Transform:
   m_ObjectHideFlags: 0

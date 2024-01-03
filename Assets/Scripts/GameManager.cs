@@ -8,10 +8,21 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public GameObject gatePrefab;  // Prefab for the gate
-    public Material gateBlueMaterial;
+    public Material gateBlueMaterial; // Material for gates with even numbers
+    public TextMeshPro playerScoreText;  // Reference to the player's score text
+    private int playerScore;  // Player's score
+
+    public GameObject gatesParent;  // Reference to the empty 3D object for gates
 
     void Start()
     {
+        playerScore = 0;
+
+        UpdatePlayerScoreText();
+
+        // Create an empty 3D object to act as the parent of the gates
+        gatesParent = new GameObject("GatesParent");
+
         // Create an array to store the instantiated gates
         GameObject[] gates = new GameObject[6];
 
@@ -19,7 +30,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < gates.Length; i++)
         {
             Vector3 gatePosition = DetermineGatePosition(i);
-            GameObject gate = Instantiate(gatePrefab, gatePosition, Quaternion.identity);
+            GameObject gate = Instantiate(gatePrefab, gatePosition, Quaternion.identity, gatesParent.transform);
             gates[i] = gate;
 
             // Access TextMeshPro component in child object
@@ -60,6 +71,9 @@ public class GameManager : MonoBehaviour
                     gateRenderer.material = gateBlueMaterial;
                 }
             }
+            // Add a Gate script component to each gate
+            Gate gateScript = gate.AddComponent<Gate>();
+            gateScript.SetGameManager(this);
 
         }
     }
@@ -83,6 +97,21 @@ public class GameManager : MonoBehaviour
                 return new Vector3(1.29f, 1f, -15f);
             default:
                 return Vector3.zero;  // Default position if index is out of range
+        }
+    }
+    // Update player's score and the displayed text
+    public void UpdatePlayerScore(int scoreDelta)
+    {
+        playerScore += scoreDelta;
+        UpdatePlayerScoreText();
+    }
+
+    // Update the displayed player's score text
+    void UpdatePlayerScoreText()
+    {
+        if (playerScoreText != null)
+        {
+            playerScoreText.text = "" + playerScore;
         }
     }
 }
