@@ -7,54 +7,82 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject[] gates;
-    [SerializeField] private int score;
-    public TextMesh scoreText;
-
-    public TextMeshProUGUI gateText;
+    public GameObject gatePrefab;  // Prefab for the gate
+    public Material gateBlueMaterial;
 
     void Start()
     {
-        if (gates != null && gates.Length > 0)
-        {
-            DetermineGatePositionsAndText();
-        }
-        else
-        {
-            Debug.LogError("Gates array is not properly set in the Inspector!");
-        }
-    }
+        // Create an array to store the instantiated gates
+        GameObject[] gates = new GameObject[6];
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-    public void UpdateScore(int scoreToAdd)
-    {
-        score += scoreToAdd;
-        scoreText.text = " " + score;
-    }
-    void DetermineGatePositionsAndText()
-    {
+        // Spawn and set positions/texts for each gate
         for (int i = 0; i < gates.Length; i++)
         {
-            // Determine position based on index
+            Vector3 gatePosition = DetermineGatePosition(i);
+            GameObject gate = Instantiate(gatePrefab, gatePosition, Quaternion.identity);
+            gates[i] = gate;
 
-            Vector3 gatePosition0 = new Vector3(-1f, 4.5f, -19f);
-            Vector3 gatePosition1 = new Vector3(3f, 4.5f, -19f);
-            Vector3 gatePosition2 = new Vector3(-1f, 4.5f, -4f);
-            Vector3 gatePosition3 = new Vector3(3f, 4.5f, -4f);
-            Vector3 gatePosition4 = new Vector3(-1f, 4.5f, 11f);
-            Vector3 gatePosition5 = new Vector3(3f, 4.5f, 11f);
+            // Access TextMeshPro component in child object
+            TextMeshPro textMeshPro = gate.GetComponentInChildren<TextMeshPro>();
 
-            gates[0].transform.position = gatePosition0;
-            gates[1].transform.position = gatePosition1;
-            gates[2].transform.position = gatePosition2;
-            gates[3].transform.position = gatePosition3;
-            gates[4].transform.position = gatePosition4;
-            gates[5].transform.position = gatePosition5;
+            // Assign specific text based on index
+            switch (i)
+            {
+                case 0:
+                    textMeshPro.text = "+8";
+                    break;
+                case 1:
+                    textMeshPro.text = "+5";
+                    break;
+                case 2:
+                    textMeshPro.text = "+15";
+                    break;
+                case 3:
+                    textMeshPro.text = "+30";
+                    break;
+                case 4:
+                    textMeshPro.text = "+4";
+                    break;
+                case 5:
+                    textMeshPro.text = "-7";
+                    break;
+                default:
+                    textMeshPro.text = "Default Text";
+                    break;
+            }
 
+            // Apply blue material to gates with even numbers
+            if (i % 2 == 0)
+            {
+                Renderer gateRenderer = gate.GetComponent<Renderer>();
+                if (gateRenderer != null)
+                {
+                    gateRenderer.material = gateBlueMaterial;
+                }
+            }
+
+        }
+    }
+
+    // Determine position based on index
+    Vector3 DetermineGatePosition(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return new Vector3(-2.71f, 1f, -45f);
+            case 1:
+                return new Vector3(1.29f, 1f, -45f);
+            case 2:
+                return new Vector3(-2.7f, 1f, -30f);
+            case 3:
+                return new Vector3(1.29f, 1f, -30f);
+            case 4:
+                return new Vector3(-2.7f, 1f, -15f);
+            case 5:
+                return new Vector3(1.29f, 1f, -15f);
+            default:
+                return Vector3.zero;  // Default position if index is out of range
         }
     }
 }
